@@ -19,8 +19,8 @@
 #
 
 directory node['nginx']['dir'] do
-  owner "root"
-  group "root"
+  owner node['nginx']['owner']
+  group node['nginx']['owner_group']
   mode 00755
   recursive true
 end
@@ -34,8 +34,8 @@ end
 
 %w(sites-available sites-enabled conf.d).each do |leaf|
   directory File.join(node['nginx']['dir'], leaf) do
-    owner "root"
-    group "root"
+    owner node['nginx']['owner']
+    group node['nginx']['owner_group']
     mode 00755
   end
 end

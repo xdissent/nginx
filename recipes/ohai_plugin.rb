@@ -26,8 +26,8 @@ end
 
 template "#{node['ohai']['plugin_path']}/nginx.rb" do
   source "plugins/nginx.rb.erb"
-  owner "root"
-  group "root"
+  owner node['nginx']['owner']
+  group node['nginx']['owner_group']
   mode 00755
   variables(
     :nginx_prefix => node['nginx']['source']['prefix'],

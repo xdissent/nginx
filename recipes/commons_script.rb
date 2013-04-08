@@ -19,10 +19,10 @@
 #
 
 %w(nxensite nxdissite).each do |nxscript|
-  template "/usr/sbin/#{nxscript}" do
+  template "#{node['nginx']['script_prefix']}/#{nxscript}" do
     source "#{nxscript}.erb"
     mode 00755
-    owner "root"
-    group "root"
+    owner node['nginx']['owner']
+    group node['nginx']['owner_group']
   end
 end

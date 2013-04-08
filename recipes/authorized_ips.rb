@@ -25,8 +25,8 @@ node.default['nginx']['authorized_ips'] = ["127.0.0.1/32"]
 template "authorized_ip" do
   path "#{node['nginx']['dir']}/authorized_ip"
   source "modules/authorized_ip.erb"
-  owner "root"
-  group "root"
+  owner node['nginx']['owner']
+  group node['nginx']['owner_group']
   mode 00644
   variables(
     :remote_ip_var => node['nginx']['remote_ip_var'],

@@ -29,6 +29,9 @@ default['nginx']['package_name'] = "nginx"
 default['nginx']['dir'] = "/etc/nginx"
 default['nginx']['log_dir'] = "/var/log/nginx"
 default['nginx']['binary'] = "/usr/sbin/nginx"
+default['nginx']['owner'] = "root"
+default['nginx']['owner_group'] = "root"
+default['nginx']['script_prefix'] = "/usr/sbin"
 
 case node['platform']
 when "debian","ubuntu"
@@ -83,3 +86,15 @@ default['nginx']['types_hash_bucket_size'] = 64
 
 default['nginx']['proxy_read_timeout'] = nil
 default['nginx']['client_max_body_size'] = nil
+
+if platform_family? "mac_os_x"
+  default['nginx']['dir'] = "/usr/local/etc/nginx"
+  default['nginx']['log_dir'] = "/usr/local/var/log/nginx"
+  default['nginx']['binary'] = "/usr/local/sbin/nginx"
+  default['nginx']['owner'] = ::ENV["USER"]
+  default['nginx']['owner_group'] = "admin"
+  default['nginx']['script_prefix'] = "/usr/local/sbin"
+  default['nginx']['user'] = ::ENV["USER"]
+  default['nginx']['group'] = "staff"
+  default['nginx']['pid'] = "/usr/local/var/run/nginx.pid"
+end

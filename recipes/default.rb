@@ -33,9 +33,11 @@ when 'package'
     end
   end
   package node['nginx']['package_name']
-  service 'nginx' do
-    supports :status => true, :restart => true, :reload => true
-    action :enable
+  unless platform_family? "mac_os_x"
+    service 'nginx' do
+      supports :status => true, :restart => true, :reload => true
+      action :enable
+    end
   end
   include_recipe 'nginx::commons'
 end

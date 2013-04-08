@@ -21,16 +21,16 @@
 template "nginx.conf" do
   path "#{node['nginx']['dir']}/nginx.conf"
   source "nginx.conf.erb"
-  owner "root"
-  group "root"
+  owner node['nginx']['owner']
+  group node['nginx']['owner_group']
   mode 00644
   notifies :reload, 'service[nginx]'
 end
 
 template "#{node['nginx']['dir']}/sites-available/default" do
   source "default-site.erb"
-  owner "root"
-  group "root"
+  owner node['nginx']['owner']
+  group node['nginx']['owner_group']
   mode 00644
   notifies :reload, 'service[nginx]'
 end
